@@ -23,3 +23,5 @@ Updates will be posted here.
 
 - [go-perlin](https://github.com/aquilax/go-perlin) -> [LICENSE](https://github.com/aquilax/go-perlin/blob/master/LICENSE)
 - [raylib-go](https://github.com/gen2brain/raylib-go) -> [LICENSE](https://github.com/gen2brain/raylib-go/blob/master/LICENSE)
+- [Fixedsys-Powerline](https://github.com/ragnarov/fixedsys-powerline)
+- [Fixedsys](https://github.com/kika/fixedsys)

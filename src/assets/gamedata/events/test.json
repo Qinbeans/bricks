@@ -1,0 +1,16 @@
+{
+    "name": "Kill the sentry",
+    "description": {
+        "text": "Kill the sentry at the Hall of the Mountain King.",
+        "challenges":[
+            {
+                "type": "kill",
+                "target": "sentry.json"
+            },
+            {
+                "type": "kill",
+                "target": "sentry.json"
+            }
+        ]
+    }
+}

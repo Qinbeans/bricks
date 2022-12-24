@@ -1,0 +1,39 @@
+{
+    "name": "New Game",
+    "description": {
+        "NewScreen": false,
+        "Subwindow": true,
+        "Player": false,
+        "Events": [],
+        "Location": [],
+        "Buttons": [
+            {
+                "name": "Seed",
+                "x": 0,
+                "y": 0,
+                "width": 0,
+                "height": 0,
+                "type": 1,
+                "value": "0"
+            },
+            {
+                "name": "Difficulty",
+                "x": 0,
+                "y": 0,
+                "width": 0,
+                "height": 0,
+                "type": 2,
+                "value": "3:1"
+            },
+            {
+                "name": "Play",
+                "x": 0,
+                "y": 0,
+                "width": 0,
+                "height": 0,
+                "type": 3,
+                "value": "play.json"
+            }
+        ]
+    }
+}

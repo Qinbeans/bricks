@@ -1,0 +1,32 @@
+{
+    "name": "Sistema de Gestión de Proyectos",
+    "stats": {
+        "str": 10,
+        "dex": 10,
+        "agi": 10,
+        "int": 10,
+        "cha": 10,
+        "luk": 10,
+        "vit": 10,
+        "def": 10,
+        "man": 0,
+        "hp": 100,
+        "stm": 100,
+        "mp": 0
+    },
+    "dialog":[
+        {
+            "text": "Hi there, I'm a project manager. I can help you with your projects.",
+            "selections": [
+                "I need a project manager",
+                "bye"
+            ]
+        },
+        {
+            "text": "Go away child.",
+            "selections": [
+                "bye"
+            ]
+        }
+    ]
+}

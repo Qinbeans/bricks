@@ -1,0 +1,30 @@
+{
+    "name": "Home",
+    "description": {
+        "NewScreen": true,
+        "Subwindow": false,
+        "Player": false,
+        "Location": [],
+        "Event": [],
+        "Buttons": [
+            {
+                "name": "Saves",
+                "x": 0,
+                "y": 0,
+                "width": 0,
+                "height": 0,
+                "type": 4,
+                "value": "$CONFIG$/saves"
+            },
+            {
+                "name": "Play",
+                "x": 0,
+                "y": 0,
+                "width": 0,
+                "height": 0,
+                "type": 3,
+                "value": "play.json"
+            }
+        ]
+    }
+}

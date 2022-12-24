@@ -1,0 +1,55 @@
+{
+    "name": "Home",
+    "description": {
+        "NewScreen": true,
+        "Subwindow": false,
+        "Player": false,
+        "Interaction": [
+            {
+                "name": "New Game",
+                "x": 5,
+                "y": 5,
+                "width": -1,
+                "height": -1,
+                "type": 0,
+                "value": "newgame.json"
+            },
+            {
+                "name": "Continue",
+                "x": 5,
+                "y": -1,
+                "width": -1,
+                "height": -1,
+                "type": 0,
+                "value": "continue.json"
+            },
+            {
+                "name": "Options",
+                "x": 5,
+                "y": -1,
+                "width": -1,
+                "height": -1,
+                "type": 0,
+                "value": "options.json"
+            },
+            {
+                "name": "Credits",
+                "x": 5,
+                "y": -1,
+                "width": -1,
+                "height": -1,
+                "type": 0,
+                "value": "credits.json"
+            },
+            {
+                "name": "Exit",
+                "x": 5,
+                "y": -1,
+                "width": -1,
+                "height": -1,
+                "type": -1,
+                "value": ""
+            }
+        ]
+    }
+}

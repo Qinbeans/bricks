@@ -45,10 +45,7 @@ func main() {
 		panic(err)
 	}
 	rl.SetWindowSize(int(ut.GameOptions.Width), int(ut.GameOptions.Height))
-	rl.SetWindowPosition(0, 0)
-	if ut.GameOptions.Fullscreen {
-		rl.ToggleFullscreen()
-	}
+	ut.IsFullscreen()
 	for !rl.WindowShouldClose() {
 		rl.BeginDrawing()
 		rl.ClearBackground(rl.Black)

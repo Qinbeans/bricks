@@ -22,30 +22,38 @@ type Action struct {
 }
 
 func (a *Action) Init() {
-	split := strings.Split(a.Value, ":")
-	for j := 0; j < len(split); j++ {
-		//look for GameData variables
-		if strings.Contains(split[j], "$SCREENS") {
-			split[j] = ut.ScreenSizes.String()
-		} else if strings.Contains(split[j], "$GOSCREEN") {
-			split[j] = ut.GameOptions.ScreenString()
-		} else if strings.Contains(split[j], "$GOFULLSCREEN") {
-			split[j] = strconv.FormatBool(ut.GameOptions.Fullscreen)
-		} else if strings.Contains(split[j], "$GOFPS") {
-			split[j] = strconv.Itoa(ut.GameOptions.FPS)
-		} else if strings.Contains(split[j], "$GOFONT") {
-			split[j] = strconv.Itoa(ut.GameOptions.FontSize)
-		} else if strings.Contains(split[j], "$GOSCALE") {
-			split[j] = strconv.FormatFloat(ut.GameOptions.Scale, 'f', 2, 64)
-		} else if strings.Contains(split[j], "$CONFIG") {
-			split2 := strings.Split(split[j], "/")
-			for k := 0; k < len(split2); k++ {
-				if strings.Contains(split2[k], "$CONFIG") {
-					split2[k] = ut.Config
+	params := strings.Split(a.Value, ":")
+	for j := 0; j < len(params); j++ {
+		if strings.Contains(params[j], "$CONFIG") {
+			path := strings.Split(params[j], "/")
+			for k := 0; k < len(path); k++ {
+				if strings.Contains(path[k], "$CONFIG") {
+					path[k] = ut.Config
 				}
 			}
-			split[j] = strings.Join(split2, "/")
+			params[j] = strings.Join(path, "/")
+		} else {
+			switch params[j] {
+			case "$SCREENS":
+				params[j] = ut.ScreenSizes.String()
+			case "$GOSCREEN":
+				//go through screens and find the one that matches the current screen
+				screen := ut.GameOptions.ScreenString()
+				index, err := ut.ScreenSizes.IndexOf(screen)
+				if err != nil {
+					index = 0
+				}
+				params[j] = strconv.Itoa(index)
+			case "$GOFULLSCREEN":
+				params[j] = strconv.FormatBool(ut.GameOptions.Fullscreen)
+			case "$GOFPS":
+				params[j] = strconv.Itoa(ut.GameOptions.FPS)
+			case "$GOFONT":
+				params[j] = strconv.Itoa(ut.GameOptions.FontSize)
+			case "$GOSCALE":
+				params[j] = strconv.FormatFloat(ut.GameOptions.Scale, 'f', 2, 64)
+			}
 		}
 	}
-	a.Value = strings.Join(split, ":")
+	a.Value = strings.Join(params, ":")
 }

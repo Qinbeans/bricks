@@ -1,4 +1,4 @@
-# Bricks
+# Bricks v0.0.2
 
 The idea was to create a game where the user can explore dungeons and fight monsters. The game is still in development and is not yet playable.
 
@@ -20,7 +20,8 @@ Updates will be posted here.
     <tr>
         <td>2022-12-26</td>
         <td>0.0.2</td>
-        <td>Better UI and options implementation</td>
+        <td>Better UI and options implementation, better naming, switch statements where applicable, update fullscreen when changed</td>
+    </tr>
 </table>
 
 # Credits

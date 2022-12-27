@@ -133,7 +133,7 @@ func (r Resolutions) String() string {
 		if i == len(r.Resolutions)-1 {
 			res += v.String()
 		} else {
-			res += v.String() + ", "
+			res += v.String() + ","
 		}
 	}
 	return res
@@ -274,4 +274,12 @@ func GOReload() {
 	}
 	rl.SetWindowSize(GameOptions.Width, GameOptions.Height)
 	rl.SetTargetFPS(int32(GameOptions.FPS))
+	IsFullscreen()
+}
+
+func IsFullscreen() bool {
+	if GameOptions.Fullscreen != rl.IsWindowFullscreen() {
+		rl.ToggleFullscreen()
+	}
+	return GameOptions.Fullscreen
 }

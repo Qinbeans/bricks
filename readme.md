@@ -13,10 +13,14 @@ Updates will be posted here.
         <th>Changes</th>
     </tr>
     <tr>
-        <td>2021-08-01</td>
+        <td>2022-12-23</td>
         <td>0.0.1</td>
         <td>Initial commit</td>
     </tr>
+    <tr>
+        <td>2022-12-26</td>
+        <td>0.0.2</td>
+        <td>Better UI and options implementation</td>
 </table>
 
 # Credits

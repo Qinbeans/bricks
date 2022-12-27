@@ -3,6 +3,7 @@
     "description": {
         "NewScreen": true,
         "Subwindow": false,
+        "Generate": false,
         "Player": false,
         "Interaction": [
             {

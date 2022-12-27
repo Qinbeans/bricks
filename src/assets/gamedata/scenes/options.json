@@ -1,0 +1,96 @@
+{
+    "name": "Options",
+    "description": {
+        "NewScreen": true,
+        "Subwindow": false,
+        "Generate": false,
+        "Player": false,
+        "Interaction": [
+            {
+                "name": "Screensize",
+                "x": 5,
+                "y": 5,
+                "width": -1,
+                "height": -1,
+                "type": 2,
+                "value": "$SCREENS:$GOSCREEN"
+            },
+            {
+                "name": "Font Size",
+                "x": 5,
+                "y": -1,
+                "width": -1,
+                "height": -1,
+                "type": 5,
+                "value": "10,64,1:$GOFONTSIZE"
+            },
+            {
+                "name": "FPS",
+                "x": 5,
+                "y": -1,
+                "width": -1,
+                "height": -1,
+                "type": 5,
+                "value": "15,120,1:$GOFPS"
+            },
+            {
+                "name": "Scale",
+                "x": 5,
+                "y": -1,
+                "width": -1,
+                "height": -1,
+                "type": 5,
+                "value": "0.01,1,0.01:$GOSCALE"
+            },
+            {
+                "name": "Fullscreen",
+                "x": 5,
+                "y": -1,
+                "width": -1,
+                "height": -1,
+                "type": 6,
+                "value": "$GOFULLSCREEN"
+            },
+            {
+                "name": "Save",
+                "x": 5,
+                "y": -1,
+                "width": -1,
+                "height": -1,
+                "type": 3,
+                "value": "0"
+            },
+            {
+                "name": "Back",
+                "x": 5,
+                "y": -1,
+                "width": -1,
+                "height": -1,
+                "type": 0,
+                "value": "home.json"
+            }
+        ],
+        "Group": [
+            {
+                "name": "save",
+                "interactions":[
+                    0,
+                    1,
+                    2,
+                    3,
+                    4
+                ],
+                "actions": [
+                    {
+                        "type": 0,
+                        "value":":0"
+                    },
+                    {
+                        "type": 1,
+                        "value":"$GORELOAD"
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -16,9 +16,9 @@ var (
 
 func main() {
 	defer func() {
-		rl.CloseWindow()
 		mt.UnloadMaterials()
 		ft.UnloadFonts()
+		rl.CloseWindow()
 	}()
 	rl.InitWindow(int32(ut.DEFWIDTH), int32(ut.DEFHEIGHT), ut.TITLE)
 
@@ -69,6 +69,7 @@ func main() {
 				panic(err)
 			}
 			curr = scene
+			curr.Init()
 		}
 		rl.EndDrawing()
 	}

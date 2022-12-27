@@ -4,6 +4,7 @@
         "NewScreen": false,
         "Subwindow": true,
         "Player": false,
+        "Generate": false,
         "Events": [],
         "Location": [],
         "Buttons": [
@@ -23,7 +24,7 @@
                 "width": 0,
                 "height": 0,
                 "type": 2,
-                "value": "3:1"
+                "value": "1,2,3:1"
             },
             {
                 "name": "Play",
@@ -32,6 +33,17 @@
                 "width": 0,
                 "height": 0,
                 "type": 3,
+                "value": "0"
+            }
+        ],
+        "Group":[
+            {
+                "name": "play",
+                "interactions": [
+                    0,
+                    1
+                ],
+                "type": 0,
                 "value": "play.json"
             }
         ]

@@ -3,6 +3,7 @@
     "description": {
         "NewScreen": true,
         "Subwindow": false,
+        "Generate": false,
         "Player": false,
         "Location": [],
         "Event": [],
@@ -14,7 +15,7 @@
                 "width": 0,
                 "height": 0,
                 "type": 4,
-                "value": "$CONFIG$/saves"
+                "value": "$CONFIG/saves:.sav.json"
             },
             {
                 "name": "Play",
@@ -23,6 +24,16 @@
                 "width": 0,
                 "height": 0,
                 "type": 3,
+                "value": "0"
+            }
+        ],
+        "Group": [
+            {
+                "name": "play",
+                "interactions": [
+                    0
+                ],
+                "type": 0,
                 "value": "play.json"
             }
         ]

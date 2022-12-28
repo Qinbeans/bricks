@@ -1,6 +1,6 @@
 {
-    "name": "New Game",
-    "description": {
+    "Name": "New Game",
+    "Description": {
         "NewScreen": false,
         "Subwindow": true,
         "Player": false,
@@ -9,42 +9,80 @@
         "Location": [],
         "Buttons": [
             {
-                "name": "Seed",
-                "x": 0,
-                "y": 0,
-                "width": 0,
-                "height": 0,
-                "type": 1,
-                "value": "0"
+                "Name": "World Name",
+                "X": 5,
+                "Y": 5,
+                "Width": -1,
+                "Height": -1,
+                "Type": 7,
+                "Value": {
+                    "Current": "Default_World"
+                }
             },
             {
-                "name": "Difficulty",
-                "x": 0,
-                "y": 0,
-                "width": 0,
-                "height": 0,
-                "type": 2,
-                "value": "1,2,3:1"
+                "Name": "Seed",
+                "X": 5,
+                "Y": -1,
+                "Width": -1,
+                "Height": -1,
+                "Type": 1,
+                "Value": {
+                    "Min": 0,
+                    "Max": 0,
+                    "Value": 0
+                }
             },
             {
-                "name": "Play",
-                "x": 0,
-                "y": 0,
-                "width": 0,
-                "height": 0,
-                "type": 3,
-                "value": "0"
+                "Name": "Difficulty",
+                "X": 5,
+                "Y": -1,
+                "Width": -1,
+                "Height": -1,
+                "Type": 2,
+                "Value": {
+                    "Values": [
+                        "Easy",
+                        "Normal",
+                        "Hard"
+                    ],
+                    "Value": 0
+                }
+            },
+            {
+                "Name": "Play",
+                "X": 5,
+                "Y": -1,
+                "Width": -1,
+                "Height": -1,
+                "Type": 3,
+                "Value": {
+                    "Value": 0
+                }
             }
         ],
         "Group":[
             {
-                "name": "play",
-                "interactions": [
+                "Name": "play",
+                "Interactions": [
                     0,
                     1
                 ],
-                "type": 0,
-                "value": "play.json"
+                "Actions": [
+                    {
+                        "Type": 0,
+                        "Value": {
+                            "Value": 1,
+                            "Input": "$CONFIG"
+                        }
+                    },
+                    {
+                        "Type": 2,
+                        "Value": {
+                            "Input": "$CONFIG",
+                            "Scene": "play.json"
+                        }
+                    }
+                ]
             }
         ]
     }

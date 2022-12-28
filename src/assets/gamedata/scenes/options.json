@@ -1,93 +1,122 @@
 {
-    "name": "Options",
-    "description": {
+    "Name": "Options",
+    "Description": {
         "NewScreen": true,
         "Subwindow": false,
         "Generate": false,
         "Player": false,
         "Interaction": [
             {
-                "name": "Screensize",
-                "x": 5,
-                "y": 5,
-                "width": -1,
-                "height": -1,
-                "type": 2,
-                "value": "$SCREENS:$GOSCREEN"
+                "Name": "Screensize",
+                "X": 5,
+                "Y": 5,
+                "Width": -1,
+                "Height": -1,
+                "Type": 2,
+                "Value": {
+                    "Values": ["$SCREENS"],
+                    "Current": "$GOSCREEN"
+                }
             },
             {
-                "name": "Font Size",
-                "x": 5,
-                "y": -1,
-                "width": -1,
-                "height": -1,
-                "type": 5,
-                "value": "10,64,1:$GOFONTSIZE"
+                "Name": "Font Size",
+                "X": 5,
+                "Y": -1,
+                "Width": -1,
+                "Height": -1,
+                "Type": 5,
+                "Value": {
+                    "Min": 10,
+                    "Max": 64,
+                    "Step": 1,
+                    "Current": "$GOFONTSIZE"
+                }
             },
             {
-                "name": "FPS",
-                "x": 5,
-                "y": -1,
-                "width": -1,
-                "height": -1,
-                "type": 5,
-                "value": "15,120,1:$GOFPS"
+                "Name": "FPS",
+                "X": 5,
+                "Y": -1,
+                "Width": -1,
+                "Height": -1,
+                "Type": 5,
+                "Value": {
+                    "Min": 15,
+                    "Max": 120,
+                    "Step": 1,
+                    "Current": "$GOFPS"
+                }
             },
             {
-                "name": "Scale",
-                "x": 5,
-                "y": -1,
-                "width": -1,
-                "height": -1,
-                "type": 5,
-                "value": "0.01,1,0.01:$GOSCALE"
+                "Name": "Scale",
+                "X": 5,
+                "Y": -1,
+                "Width": -1,
+                "Height": -1,
+                "Type": 5,
+                "Value": {
+                    "Min": 0.01,
+                    "Max": 1,
+                    "Step": 0.01,
+                    "Current": "$GOSCALE"
+                }
             },
             {
-                "name": "Fullscreen",
-                "x": 5,
-                "y": -1,
-                "width": -1,
-                "height": -1,
-                "type": 6,
-                "value": "$GOFULLSCREEN"
+                "Name": "Fullscreen",
+                "X": 5,
+                "Y": -1,
+                "Width": -1,
+                "Height": -1,
+                "Type": 6,
+                "Value": {
+                    "Current": "$GOFULLSCREEN"
+                }
             },
             {
-                "name": "Save",
-                "x": 5,
-                "y": -1,
-                "width": -1,
-                "height": -1,
-                "type": 3,
-                "value": "0"
+                "Name": "Save",
+                "X": 5,
+                "Y": -1,
+                "Width": -1,
+                "Height": -1,
+                "Type": 3,
+                "Value": {
+                    "Value": 0
+                }
             },
             {
-                "name": "Back",
-                "x": 5,
-                "y": -1,
-                "width": -1,
-                "height": -1,
-                "type": 0,
-                "value": "home.json"
+                "Name": "Back",
+                "X": 5,
+                "Y": -1,
+                "Width": -1,
+                "Height": -1,
+                "Type": 0,
+                "Value": {
+                    "Current": "home.json"
+                }
             }
         ],
         "Group": [
             {
-                "name": "save",
-                "interactions":[
+                "Name": "save",
+                "Interactions":[
                     0,
                     1,
                     2,
                     3,
                     4
                 ],
-                "actions": [
+                "Actions": [
                     {
-                        "type": 0,
-                        "value":":0"
+                        "Type": 0,
+                        "Value": {
+                            "Input": "",
+                            "Value": -1
+                        }
                     },
                     {
-                        "type": 1,
-                        "value":"$GORELOAD"
+                        "Type": 1,
+                        "Value": {
+                            "Input":"$GORELOAD"
+                        }
                     }
                 ]
             }

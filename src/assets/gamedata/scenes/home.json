@@ -1,55 +1,62 @@
 {
-    "name": "Home",
-    "description": {
+    "Name": "Home",
+    "Description": {
         "NewScreen": true,
         "Subwindow": false,
         "Generate": false,
         "Player": false,
         "Interaction": [
             {
-                "name": "New Game",
-                "x": 5,
-                "y": 5,
-                "width": -1,
-                "height": -1,
-                "type": 0,
-                "value": "newgame.json"
+                "Name": "New Game",
+                "X": 5,
+                "Y": 5,
+                "Width": -1,
+                "Height": -1,
+                "Type": 0,
+                "Value": {
+                    "Current":"newgame.json"
+                }
             },
             {
-                "name": "Continue",
-                "x": 5,
-                "y": -1,
-                "width": -1,
-                "height": -1,
-                "type": 0,
-                "value": "continue.json"
+                "Name": "Continue",
+                "X": 5,
+                "Y": -1,
+                "Width": -1,
+                "Height": -1,
+                "Type": 0,
+                "Value": {
+                    "Current":"continue.json"
+                }
             },
             {
-                "name": "Options",
-                "x": 5,
-                "y": -1,
-                "width": -1,
-                "height": -1,
-                "type": 0,
-                "value": "options.json"
+                "Name": "Options",
+                "X": 5,
+                "Y": -1,
+                "Width": -1,
+                "Height": -1,
+                "Type": 0,
+                "Value": {
+                    "Current":"options.json"
+                }
             },
             {
-                "name": "Credits",
-                "x": 5,
-                "y": -1,
-                "width": -1,
-                "height": -1,
-                "type": 0,
-                "value": "credits.json"
+                "Name": "Credits",
+                "X": 5,
+                "Y": -1,
+                "Width": -1,
+                "Height": -1,
+                "Type": 0,
+                "Value": {
+                    "Current":"credits.json"
+                }
             },
             {
-                "name": "Exit",
-                "x": 5,
-                "y": -1,
-                "width": -1,
-                "height": -1,
-                "type": -1,
-                "value": ""
+                "Name": "Exit",
+                "X": 5,
+                "Y": -1,
+                "Width": -1,
+                "Height": -1,
+                "Type": -1
             }
         ]
     }

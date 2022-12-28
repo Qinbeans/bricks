@@ -15,7 +15,10 @@
                 "width": 0,
                 "height": 0,
                 "type": 4,
-                "value": "$CONFIG/saves:.sav.json"
+                "value": {
+                    "directory":"$CONFIG/saves",
+                    "extension":".sav.json"
+                }
             },
             {
                 "name": "Play",

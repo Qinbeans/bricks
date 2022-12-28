@@ -24,7 +24,7 @@ const (
 	DELAY       = 8
 	DEFFS       = false
 
-	OPTIONS = 0
+	OPTIONS = -1
 )
 
 var (

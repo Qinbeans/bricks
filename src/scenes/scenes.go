@@ -34,8 +34,8 @@ import (
 // $<NAME> refers to a variable in file with the name <NAME>
 
 type Scene struct {
-	Name        string      `json:"name"`        //The name of the scene
-	Description Description `json:"description"` //The description of the scene
+	Name        string      `json:"Name"`        //The name of the scene
+	Description Description `json:"Description"` //The description of the scene
 	//in-game
 	PlayerData   pl.Player  `json:"-"`
 	Heartbeat    int        `json:"-"`

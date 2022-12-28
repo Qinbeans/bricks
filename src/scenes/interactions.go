@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"os"
 	"strconv"
-	"strings"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
@@ -36,16 +35,16 @@ const (
 )
 
 type Interaction struct {
-	Name     string  `json:"name"`   //The name of the interaction
-	X        float32 `json:"x"`      //The x coordinate of the interaction
-	Y        float32 `json:"y"`      //The y coordinate of the interaction
-	Width    float32 `json:"width"`  //The width of the interaction
-	Height   float32 `json:"height"` //The height of the interaction
-	Type     int     `json:"type"`   //The type of interaction
-	Value    string  `json:"value"`  //The value of the interaction
-	Modified bool    `json:"-"`      //exclude from json
-	Hover    int     `json:"-"`      //exclude from json
-	Group    *Group  `json:"-"`      //Used to check group
+	Name     string         `json:"Name"`   //The name of the interaction
+	X        float32        `json:"X"`      //The x coordinate of the interaction
+	Y        float32        `json:"Y"`      //The y coordinate of the interaction
+	Width    float32        `json:"Width"`  //The width of the interaction
+	Height   float32        `json:"Height"` //The height of the interaction
+	Type     int            `json:"Type"`   //The type of interaction
+	Value    ut.GenIntValue `json:"Value"`  //The value of the interaction
+	Modified bool           `json:"-"`      //exclude from json
+	Hover    int            `json:"-"`      //exclude from json
+	Group    *Group         `json:"-"`      //Used to check group
 }
 
 func (i *Interaction) Draw() {
@@ -67,26 +66,19 @@ func (i *Interaction) Draw() {
 		rl.DrawRectangleRounded(rl.NewRectangle(i.X, i.Y, i.Width+ut.FontSpacing*2, i.Height+ut.FontSpacing*2), 0.2, 0, color)
 		rl.DrawTextEx(*ft.Fonts[0], i.Name, rl.NewVector2(i.X+ut.FontSpacing, i.Y+ut.FontSpacing), float32(ut.GameOptions.FontSize), ut.FontSpacing, rl.White)
 	case NUMBER:
-		//integer
+		number := i.Value
 		color := rl.Red
 		if i.Hover > 0 {
 			color = rl.Green
 		}
-		text := i.Name + ": " + i.Value
+		text := i.Name + ": " + number.Current
 		rl.DrawRectangleRounded(rl.NewRectangle(i.X, i.Y, i.Width+ut.FontSpacing*2, i.Height+ut.FontSpacing*2), 0.2, 0, color)
 		rl.DrawTextEx(*ft.Fonts[0], text, rl.NewVector2(i.X+ut.FontSpacing, i.Y+ut.FontSpacing), float32(ut.GameOptions.FontSize), ut.FontSpacing, rl.White)
 	case CHOICE:
-		params := strings.Split(i.Value, ":")
-		choices := strings.Split(params[0], ",")
-		choice, err := strconv.Atoi(params[1])
-		if err != nil {
-			//error
-			rl.DrawRectangleRounded(rl.NewRectangle(i.X, i.Y, i.Width, i.Height), 0.2, 0, rl.Red)
-			rl.DrawTextEx(*ft.Fonts[0], "Error", rl.NewVector2(i.X+ut.FontSpacing, i.Y+ut.FontSpacing), float32(ut.GameOptions.FontSize), ut.FontSpacing, rl.White)
-		}
+		choice := i.Value
 		//draw choice
 		rl.DrawRectangleRounded(rl.NewRectangle(i.X+float32(ut.GameOptions.FontSize)+ut.FontSpacing, i.Y, i.Width, i.Height), 0.2, 0, rl.Red)
-		rl.DrawTextEx(*ft.Fonts[0], choices[choice], rl.NewVector2(i.X+float32(ut.GameOptions.FontSize)+ut.FontSpacing, i.Y+ut.FontSpacing), float32(ut.GameOptions.FontSize), ut.FontSpacing, rl.White)
+		rl.DrawTextEx(*ft.Fonts[0], choice.GetFromValues(), rl.NewVector2(i.X+float32(ut.GameOptions.FontSize)+ut.FontSpacing, i.Y+ut.FontSpacing), float32(ut.GameOptions.FontSize), ut.FontSpacing, rl.White)
 		//slides left and right
 		//left arrow
 		if i.Hover < 0 {
@@ -127,21 +119,23 @@ func (i *Interaction) Draw() {
 func (i *Interaction) Update(interactions []Interaction) (*Scene, error) {
 	switch i.Type {
 	case CHOICE:
-		//multiple choice
-		params := strings.Split(i.Value, ":")
-		choices := strings.Split(params[0], ",")
-		choice, err := strconv.Atoi(params[1])
+		choice := i.Value
+		tmp, err := strconv.Atoi(choice.Current)
+		choice.Value = float64(tmp)
 		if err != nil {
 			return nil, err
 		}
+		//multiple choice
 		if rl.CheckCollisionPointRec(rl.GetMousePosition(), rl.NewRectangle(i.X+i.Width+float32(ut.GameOptions.FontSize)+ut.FontSpacing, i.Y, float32(ut.GameOptions.FontSize)+ut.FontSpacing, i.Height)) {
 			i.Hover = 1
 			if rl.IsMouseButtonPressed(rl.MouseLeftButton) && !i.Modified {
-				choice++
-				if choice > len(choices)-1 {
-					choice = 0
+				choice.Value++
+				if int(choice.Value) > len(choice.Values)-1 {
+					choice.Value = 0
 				}
-				i.Value = params[0] + ":" + strconv.Itoa(choice)
+				choice.Current = strconv.FormatFloat(choice.Value, 'f', 0, 64)
+				//hot beauty
+				i.Value = choice
 				i.Modified = true
 			} else if rl.IsMouseButtonUp(rl.MouseLeftButton) && i.Modified {
 				i.Modified = false
@@ -149,11 +143,12 @@ func (i *Interaction) Update(interactions []Interaction) (*Scene, error) {
 		} else if rl.CheckCollisionPointRec(rl.GetMousePosition(), rl.NewRectangle(i.X, i.Y, float32(ut.GameOptions.FontSize)+ut.FontSpacing, i.Height)) {
 			i.Hover = -1
 			if rl.IsMouseButtonPressed(rl.MouseLeftButton) && !i.Modified {
-				choice--
-				if choice < 0 {
-					choice = len(choices) - 1
+				choice.Value--
+				if choice.Value < 0 {
+					choice.Value = float64(len(choice.Values) - 1)
 				}
-				i.Value = params[0] + ":" + strconv.Itoa(choice)
+				choice.Current = strconv.FormatFloat(choice.Value, 'f', 0, 64)
+				i.Value = choice
 				i.Modified = true
 			} else if rl.IsMouseButtonUp(rl.MouseLeftButton) && i.Modified {
 				i.Modified = false
@@ -161,86 +156,94 @@ func (i *Interaction) Update(interactions []Interaction) (*Scene, error) {
 		} else {
 			i.Hover = 0
 		}
-		size := rl.MeasureTextEx(*ft.Fonts[0], choices[choice], float32(ut.GameOptions.FontSize), ut.FontSpacing)
+		size := rl.MeasureTextEx(*ft.Fonts[0], choice.GetFromValues(), float32(ut.GameOptions.FontSize), ut.FontSpacing)
 		i.Width = size.X
 	default:
 		//not a multiple choice
 		i.Hover = 1
 		if rl.CheckCollisionPointRec(rl.GetMousePosition(), rl.NewRectangle(float32(i.X), float32(i.Y), float32(i.Width), float32(i.Height))) {
-			if rl.IsMouseButtonPressed(rl.MouseLeftButton) && !i.Modified {
-				i.Modified = true
-				switch i.Type {
-				case EXIT:
-					//exit
-					return nil, errors.New("exit")
-				case RENDER:
-					//spawn scene
-					//load scene
-					scene, err := LoadScene(i.Value)
-					if err != nil {
-						return nil, err
-					}
-					return scene, nil
-				case NUMBER:
-					//integer
-					//TODO
-					//modifiable number
-				case GROUP:
-					//Perform group actions
-					for _, action := range i.Group.Actions {
-						params := strings.Split(action.Value, ":")
-						switch action.Type {
-						case SAVE:
-							loc := params[0]
-							val, err := strconv.Atoi(params[1])
-							if err != nil {
-								return nil, err
-							}
-							//save value
-							switch val {
-							case ut.OPTIONS:
-								//save to file as options
-								ut.GameOptions.Resolution = ut.ScreenSizes.Strings()[ut.UnformattedInt(interactions[0].Value)]
-								ut.GameOptions.FontSize = ut.UnformattedInt(interactions[1].Value)
-								ut.GameOptions.FPS = ut.UnformattedInt(interactions[2].Value)
-								ut.GameOptions.Scale = ut.UnformattedFloat(interactions[3].Value)
-								ut.GameOptions.Fullscreen = interactions[4].Value == "true"
-
-								//save to file
-								err := ut.GameOptions.Save()
-								if err != nil {
-									return nil, err
-								}
-							default:
-								fmt.Fprintf(os.Stderr, "Invalid save location: %s", loc)
-							}
-						case FUNCALL:
-							//call function
-							switch params[0] {
-							case "$GORELOAD":
-								//reload game
-								ut.GOReload()
-								//prob should reload scene
-							default:
-							}
-						case WAIT:
-						default:
-						}
-					}
-				case DIR:
-					//directory
-				case SLIDER:
-					//slider
-					//TODO
-				case TOGGLE:
-					//toggle
-					//TODO
-				default:
-					//error
-					//TODO
+			if i.Type == SLIDER {
+				//render width is fontSize * 4
+				if rl.IsMouseButtonPressed(rl.MouseLeftButton) {
+					//follow mouse
+					// start := i.X + i.Width
+					// end := i.X + i.Width + float32(ut.GameOptions.FontSize)*4
+					//
+				} else if rl.IsMouseButtonReleased(rl.MouseLeftButton) {
+					//save value
+					start := i.X + i.Width
+					end := i.X + i.Width + float32(ut.GameOptions.FontSize)*4
+					pos := rl.GetMousePosition().X
+					value := (pos - start) / (end - start)
+					i.Value.Current = strconv.FormatFloat(float64(value), 'f', 2, 64)
 				}
-			} else if rl.IsMouseButtonReleased(rl.MouseLeftButton) && i.Modified {
-				i.Modified = false
+			} else {
+				if rl.IsMouseButtonPressed(rl.MouseLeftButton) && !i.Modified {
+					i.Modified = true
+					switch i.Type {
+					case EXIT:
+						//exit
+						return nil, errors.New("exit")
+					case RENDER:
+						//spawn scene
+						//load scene
+						fmt.Fprintf(os.Stderr, "Render: %v\n", i.Value)
+						render := i.Value
+						scene, err := LoadScene(render.Current)
+						if err != nil {
+							return nil, err
+						}
+						return scene, nil
+					case NUMBER:
+						//integer
+						//TODO
+						//modifiable number
+					case GROUP:
+						//Perform group actions
+						for _, action := range i.Group.Actions {
+							switch action.Type {
+							case SAVE:
+								save := action.Value
+								loc := save.Input
+								val := save.Value
+								//save value
+								switch val {
+								case ut.OPTIONS:
+									//save to file as options
+									ut.GameOptions.Resolution = interactions[0].Value.GetFromValues()
+									ut.GameOptions.FontSize = int(interactions[1].Value.Value)
+									ut.GameOptions.FPS = int(interactions[2].Value.Value)
+									ut.GameOptions.Scale = interactions[3].Value.Value
+									ut.GameOptions.Fullscreen = int(interactions[4].Value.Value) == 1
+
+									//save to file
+									err := ut.GameOptions.Save()
+									if err != nil {
+										return nil, err
+									}
+								default:
+									fmt.Fprintf(os.Stderr, "Invalid save location: %s", loc)
+								}
+							case FUNCALL:
+								//call function
+								function := action.Value
+								ut.FuncMap[function.Input]()
+							case WAIT:
+							default:
+							}
+						}
+					case DIR:
+						//directory
+					case TOGGLE:
+						//toggle
+						//TODO
+					default:
+						//error
+						//TODO
+					}
+				} else if rl.IsMouseButtonReleased(rl.MouseLeftButton) && i.Modified {
+					i.Modified = false
+				}
 			}
 		} else {
 			i.Hover = 0
@@ -251,51 +254,13 @@ func (i *Interaction) Update(interactions []Interaction) (*Scene, error) {
 
 func (i *Interaction) Init() (int, error) {
 	//fill values appropriately
-	if i.Type == 3 {
+	i.Value.Init()
+	if i.Type == GROUP {
 		//look for group id
-		fmt.Fprintf(os.Stderr, "Interaction value: %s\n", i.Value)
-		index, err := strconv.Atoi(i.Value)
-		if err != nil {
-			return -1, err
-		}
+		group := i.Value
+		fmt.Fprintf(os.Stderr, "Interaction value: %d\n", int(group.Value))
+		index := int(group.Value)
 		return index, nil
 	}
-	params := strings.Split(i.Value, ":")
-
-	fmt.Fprintf(os.Stderr, "Interaction value: %v\n", params)
-
-	for j := 0; j < len(params); j++ {
-		if strings.Contains(params[j], "$CONFIG") {
-			path := strings.Split(params[j], "/")
-			for k := 0; k < len(path); k++ {
-				if strings.Contains(path[k], "$CONFIG") {
-					path[k] = ut.Config
-				}
-			}
-			params[j] = strings.Join(path, "/")
-		} else {
-			switch params[j] {
-			case "$SCREENS":
-				params[j] = ut.ScreenSizes.String()
-			case "$GOSCREEN":
-				//go through screens and find the one that matches the current screen
-				screen := ut.GameOptions.ScreenString()
-				index, err := ut.ScreenSizes.IndexOf(screen)
-				if err != nil {
-					index = 0
-				}
-				params[j] = strconv.Itoa(index)
-			case "$GOFULLSCREEN":
-				params[j] = strconv.FormatBool(ut.GameOptions.Fullscreen)
-			case "$GOFPS":
-				params[j] = strconv.Itoa(ut.GameOptions.FPS)
-			case "$GOFONT":
-				params[j] = strconv.Itoa(ut.GameOptions.FontSize)
-			case "$GOSCALE":
-				params[j] = strconv.FormatFloat(ut.GameOptions.Scale, 'f', 2, 64)
-			}
-		}
-	}
-	i.Value = strings.Join(params, ":")
 	return -1, nil
 }

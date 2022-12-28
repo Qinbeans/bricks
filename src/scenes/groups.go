@@ -1,9 +1,9 @@
 package scenes
 
 type Group struct {
-	Name         string   `json:"name"`         //The name of the group
-	Interactions []int    `json:"interactions"` //The indexes of the interactions in the group
-	Actions      []Action `json:"actions"`      //The actions to be performed when the group is complete
+	Name         string   `json:"Name"`         //The name of the group
+	Interactions []int    `json:"Interactions"` //The indexes of the interactions in the group
+	Actions      []Action `json:"Actions"`      //The actions to be performed when the group is complete
 	Complete     int      `json:"-"`            //exclude from json
 }
 

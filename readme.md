@@ -22,6 +22,11 @@ Updates will be posted here.
         <td>0.0.2</td>
         <td>Better UI and options implementation, better naming, switch statements where applicable, update fullscreen when changed</td>
     </tr>
+    <tr>
+        <td>2022-12-28</td>
+        <td>0.0.2</td>
+        <td>Refined JSON styling</td>
+    </tr>
 </table>
 
 # Credits
